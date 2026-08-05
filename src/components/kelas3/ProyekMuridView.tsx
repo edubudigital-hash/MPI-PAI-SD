@@ -2,6 +2,8 @@ import React from 'react';
 import { KELAS3_P1_PROJECTS } from '../../data/kelas3Pembelajaran1Data';
 import { KELAS3_P2_PROJECTS } from '../../data/kelas3Pembelajaran2Data';
 import { KELAS3_P3_PROJECTS } from '../../data/kelas3Pembelajaran3Data';
+import { KELAS3_P4_PROJECTS } from '../../data/kelas3Pembelajaran4Data';
+import { KELAS3_P5_PROJECTS } from '../../data/kelas3Pembelajaran5Data';
 import { printOrDownloadDocument } from '../../utils/exporter';
 import { soundFX } from '../../utils/audio';
 import { Download, FolderKanban, Sparkles, CheckCircle2 } from 'lucide-react';
@@ -12,7 +14,7 @@ interface ProyekMuridViewProps {
 }
 
 export const ProyekMuridView: React.FC<ProyekMuridViewProps> = ({ grade, lesson }) => {
-  const projectsData = lesson === 3 ? KELAS3_P3_PROJECTS : (lesson === 2 ? KELAS3_P2_PROJECTS : KELAS3_P1_PROJECTS);
+  const projectsData = lesson === 5 ? KELAS3_P5_PROJECTS : (lesson === 4 ? KELAS3_P4_PROJECTS : (lesson === 3 ? KELAS3_P3_PROJECTS : (lesson === 2 ? KELAS3_P2_PROJECTS : KELAS3_P1_PROJECTS)));
 
   const handleDownloadProyek = () => {
     soundFX.playClick();
@@ -59,7 +61,9 @@ export const ProyekMuridView: React.FC<ProyekMuridViewProps> = ({ grade, lesson 
       `;
     });
 
-    const docSub = lesson === 3
+    const docSub = lesson === 4
+      ? 'PEMBELAJARAN 4: MENGENAL DAN MEMPRAKTIKKAN AZAN DAN IQAMAH SECARA SEDERHANA (2 PjBL & 2 PBL)'
+      : lesson === 3
       ? 'PEMBELAJARAN 3: MENERAPKAN HUSNUZAN DAN MENGHINDARI SUUZAN KEPADA ALLAH SWT. (2 PjBL & 2 PBL)'
       : lesson === 2
       ? 'PEMBELAJARAN 2: 20 SIFAT WAJIB & 20 SIFAT MUSTAHIL ALLAH SWT. (2 PjBL & 2 PBL)'

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { KELAS3_P1_SLIDES } from '../../data/kelas3Pembelajaran1Data';
 import { KELAS3_P2_SLIDES } from '../../data/kelas3Pembelajaran2Data';
 import { KELAS3_P3_SLIDES } from '../../data/kelas3Pembelajaran3Data';
+import { KELAS3_P4_SLIDES } from '../../data/kelas3Pembelajaran4Data';
+import { KELAS3_P5_SLIDES } from '../../data/kelas3Pembelajaran5Data';
 import { printOrDownloadDocument } from '../../utils/exporter';
 import { soundFX } from '../../utils/audio';
 import { 
@@ -23,7 +25,7 @@ interface MateriSlideViewProps {
 }
 
 export const MateriSlideView: React.FC<MateriSlideViewProps> = ({ grade, lesson }) => {
-  const slidesData = lesson === 3 ? KELAS3_P3_SLIDES : (lesson === 2 ? KELAS3_P2_SLIDES : KELAS3_P1_SLIDES);
+  const slidesData = lesson === 5 ? KELAS3_P5_SLIDES : (lesson === 4 ? KELAS3_P4_SLIDES : (lesson === 3 ? KELAS3_P3_SLIDES : (lesson === 2 ? KELAS3_P2_SLIDES : KELAS3_P1_SLIDES)));
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
   const slide = slidesData[currentSlideIndex] || slidesData[0];
   const totalSlides = slidesData.length;
@@ -103,7 +105,9 @@ export const MateriSlideView: React.FC<MateriSlideViewProps> = ({ grade, lesson 
       slidesHtml += `</div>`;
     });
 
-    const docSubtitle = lesson === 3
+    const docSubtitle = lesson === 4
+      ? 'PEMBELAJARAN 4: MENGENAL DAN MEMPRAKTIKKAN AZAN DAN IQAMAH SECARA SEDERHANA'
+      : lesson === 3
       ? 'PEMBELAJARAN 3: MENERAPKAN HUSNUZAN DAN MENGHINDARI SUUZAN KEPADA ALLAH SWT.'
       : lesson === 2
       ? 'PEMBELAJARAN 2: 20 SIFAT WAJIB & 20 SIFAT MUSTAHIL BAGI ALLAH SWT.'

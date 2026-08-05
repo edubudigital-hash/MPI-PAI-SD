@@ -20,6 +20,20 @@ import {
   EVALUASI_P3_BS, 
   EVALUASI_P3_ESSAY 
 } from '../../data/kelas3Pembelajaran3Data';
+import { 
+  EVALUASI_P4_PG, 
+  EVALUASI_P4_PGK, 
+  EVALUASI_P4_MATCHING, 
+  EVALUASI_P4_BS, 
+  EVALUASI_P4_ESSAY 
+} from '../../data/kelas3Pembelajaran4Data';
+import { 
+  EVALUASI_P5_PG, 
+  EVALUASI_P5_PGK, 
+  EVALUASI_P5_MATCHING, 
+  EVALUASI_P5_BS, 
+  EVALUASI_P5_ESSAY 
+} from '../../data/kelas3Pembelajaran5Data';
 import { printOrDownloadDocument } from '../../utils/exporter';
 import { soundFX } from '../../utils/audio';
 import { 
@@ -39,17 +53,18 @@ interface EvaluasiViewProps {
 
 export const EvaluasiView: React.FC<EvaluasiViewProps> = ({ grade, lesson }) => {
   // Select data according to lesson
-  const dataPG = lesson === 3 ? EVALUASI_P3_PG : (lesson === 2 ? EVALUASI_P2_PG : EVALUASI_P1_PG);
-  const dataPGK = lesson === 3 ? EVALUASI_P3_PGK : (lesson === 2 ? EVALUASI_P2_PGK : EVALUASI_P1_PGK);
-  const dataMatching = lesson === 3 ? EVALUASI_P3_MATCHING : (lesson === 2 ? EVALUASI_P2_MATCHING : EVALUASI_P1_MATCHING);
-  const dataBS = lesson === 3 ? EVALUASI_P3_BS : (lesson === 2 ? EVALUASI_P2_BS : EVALUASI_P1_BS);
-  const dataEssay = lesson === 3 ? EVALUASI_P3_ESSAY : (lesson === 2 ? EVALUASI_P2_ESSAY : EVALUASI_P1_ESSAY);
+  const dataPG = lesson === 5 ? EVALUASI_P5_PG : (lesson === 4 ? EVALUASI_P4_PG : (lesson === 3 ? EVALUASI_P3_PG : (lesson === 2 ? EVALUASI_P2_PG : EVALUASI_P1_PG)));
+  const dataPGK = lesson === 5 ? EVALUASI_P5_PGK : (lesson === 4 ? EVALUASI_P4_PGK : (lesson === 3 ? EVALUASI_P3_PGK : (lesson === 2 ? EVALUASI_P2_PGK : EVALUASI_P1_PGK)));
+  const dataMatching = lesson === 5 ? EVALUASI_P5_MATCHING : (lesson === 4 ? EVALUASI_P4_MATCHING : (lesson === 3 ? EVALUASI_P3_MATCHING : (lesson === 2 ? EVALUASI_P2_MATCHING : EVALUASI_P1_MATCHING)));
+  const dataBS = lesson === 5 ? EVALUASI_P5_BS : (lesson === 4 ? EVALUASI_P4_BS : (lesson === 3 ? EVALUASI_P3_BS : (lesson === 2 ? EVALUASI_P2_BS : EVALUASI_P1_BS)));
+  const dataEssay = lesson === 5 ? EVALUASI_P5_ESSAY : (lesson === 4 ? EVALUASI_P4_ESSAY : (lesson === 3 ? EVALUASI_P3_ESSAY : (lesson === 2 ? EVALUASI_P2_ESSAY : EVALUASI_P1_ESSAY)));
 
   // State for user answers
   const [userPG, setUserPG] = useState<{ [qId: number]: number }>({});
   const [userPGK, setUserPGK] = useState<{ [qId: number]: number[] }>({});
   const [userMatching, setUserMatching] = useState<{ [qId: number]: string }>({});
   const [userBS, setUserBS] = useState<{ [qId: number]: boolean }>({});
+  const [userBSReason, setUserBSReason] = useState<{ [qId: number]: string }>({});
   const [userEssay, setUserEssay] = useState<{ [qId: number]: string }>({});
 
   // UI state toggles
@@ -195,7 +210,9 @@ export const EvaluasiView: React.FC<EvaluasiViewProps> = ({ grade, lesson }) => 
       `;
     });
 
-    const docSub = lesson === 3
+    const docSub = lesson === 4
+      ? 'PEMBELAJARAN 4: MENGENAL DAN MEMPRAKTIKKAN AZAN DAN IQAMAH SECARA SEDERHANA (HOTS & CT)'
+      : lesson === 3
       ? 'PEMBELAJARAN 3: MENERAPKAN HUSNUZAN DAN MENGHINDARI SUUZAN KEPADA ALLAH SWT. (HOTS & CT)'
       : lesson === 2
       ? 'PEMBELAJARAN 2: 20 SIFAT WAJIB & 20 SIFAT MUSTAHIL ALLAH SWT. (HOTS & CT)'
@@ -524,51 +541,64 @@ export const EvaluasiView: React.FC<EvaluasiViewProps> = ({ grade, lesson }) => 
           {dataBS.map((q) => {
             const userChoice = userBS[q.id];
             return (
-              <div key={q.id} className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                <div className="space-y-1">
-                  <div className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200">
-                    {q.id}. {q.statement}
-                  </div>
-                  {q.arabic && (
-                    <div className="font-arabic text-xl text-emerald-800 dark:text-emerald-300 font-bold">
-                      {q.arabic}
+              <div key={q.id} className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div className="space-y-1">
+                    <div className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200">
+                      {q.id}. {q.statement}
                     </div>
-                  )}
+                    {q.arabic && (
+                      <div className="font-arabic text-xl text-emerald-800 dark:text-emerald-300 font-bold">
+                        {q.arabic}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex items-center space-x-2 shrink-0">
+                    <button
+                      onClick={() => {
+                        soundFX.playClick();
+                        setUserBS((prev) => ({ ...prev, [q.id]: true }));
+                      }}
+                      className={`px-4 py-2 rounded-xl text-xs font-black border transition cursor-pointer ${
+                        userChoice === true
+                          ? 'bg-emerald-600 text-white border-emerald-500'
+                          : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700'
+                      }`}
+                    >
+                      BENAR
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        soundFX.playClick();
+                        setUserBS((prev) => ({ ...prev, [q.id]: false }));
+                      }}
+                      className={`px-4 py-2 rounded-xl text-xs font-black border transition cursor-pointer ${
+                        userChoice === false
+                          ? 'bg-rose-600 text-white border-rose-500'
+                          : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700'
+                      }`}
+                    >
+                      SALAH
+                    </button>
+                  </div>
                 </div>
 
-                <div className="flex items-center space-x-2 shrink-0">
-                  <button
-                    onClick={() => {
-                      soundFX.playClick();
-                      setUserBS((prev) => ({ ...prev, [q.id]: true }));
-                    }}
-                    className={`px-4 py-2 rounded-xl text-xs font-black border transition cursor-pointer ${
-                      userChoice === true
-                        ? 'bg-emerald-600 text-white border-emerald-500'
-                        : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700'
-                    }`}
-                  >
-                    BENAR
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      soundFX.playClick();
-                      setUserBS((prev) => ({ ...prev, [q.id]: false }));
-                    }}
-                    className={`px-4 py-2 rounded-xl text-xs font-black border transition cursor-pointer ${
-                      userChoice === false
-                        ? 'bg-rose-600 text-white border-rose-500'
-                        : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700'
-                    }`}
-                  >
-                    SALAH
-                  </button>
+                {/* Kolom Alasan Jawaban */}
+                <div className="pt-1">
+                  <input
+                    type="text"
+                    placeholder="Tuliskan alasan pilihan jawabanmu di sini..."
+                    value={userBSReason[q.id] || ''}
+                    onChange={(e) => setUserBSReason((prev) => ({ ...prev, [q.id]: e.target.value }))}
+                    className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                  />
                 </div>
 
                 {showAnswerKey && (
-                  <div className="text-xs font-extrabold text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/60 px-3 py-1.5 rounded-lg w-full sm:w-auto">
-                    Kunci: {q.isTrue ? 'BENAR' : 'SALAH'} — {q.explanation}
+                  <div className="text-xs font-extrabold text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/60 px-3 py-2 rounded-lg w-full">
+                    💡 Kunci: <strong>{q.isTrue ? 'BENAR' : 'SALAH'}</strong> — {q.explanation}
                   </div>
                 )}
               </div>

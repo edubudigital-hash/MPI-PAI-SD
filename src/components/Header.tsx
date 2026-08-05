@@ -77,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
         <div className="hidden md:flex items-center space-x-1 text-amber-300 font-medium">
           <Sparkles className="w-3 h-3 text-amber-400" />
-          <span>PAICODE-MPI • Kurikulum Merdeka</span>
+          <span>SIMPAD • Kurikulum Merdeka</span>
         </div>
       </div>
 
@@ -89,11 +89,11 @@ export const Header: React.FC<HeaderProps> = ({
             <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
           </div>
           <div>
-            <h1 className="text-sm sm:text-base md:text-lg font-extrabold tracking-tight text-white leading-tight">
-              PAICODE-MPI PAI SD
+            <h1 className="text-base sm:text-lg md:text-xl font-extrabold tracking-widest text-white leading-tight">
+              S I M P A D
             </h1>
-            <p className="text-[10px] sm:text-xs text-emerald-100 font-normal hidden xs:block leading-none mt-0.5">
-              Multimedia Pembelajaran Interaktif PAI SD
+            <p className="text-[10px] sm:text-xs text-emerald-100 font-medium leading-none mt-0.5">
+              Sistem Media Pembelajaran Digital PAI-SD
             </p>
           </div>
         </div>

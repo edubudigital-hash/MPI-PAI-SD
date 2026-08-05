@@ -1,5 +1,5 @@
 {
-  "name": "Media Pembelajaran Interaktif PAI SD",
+  "name": "SIMPAD - Sistem Media Pembelajaran Digital PAI SD",
   "description": "Aplikasi media pembelajaran interaktif Pendidikan Agama Islam & Budi Pekerti Kurikulum Merdeka untuk Kelas 1-6 SD, responsif untuk HP, Laptop, dan IFP (Interactive Flat Panel).",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

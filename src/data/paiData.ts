@@ -254,14 +254,55 @@ export const SAMPLE_TOPICS: LearningTopic[] = [
   {
     id: 'k5-1',
     grade: 5,
-    element: 'Akhlak',
-    title: 'Indahnya Saling Menghormati & Menghargai',
-    subtitle: 'Mewujudkan keberagaman suku dan agama dengan damai',
-    description: 'Islam mengajarkan tasamuh (toleransi) dan kebaikan kepada sesama tanpa membeda-bedakan suku atau latar belakang.',
+    element: 'Al-Qur\'an Hadis',
+    title: 'Membaca, Menulis, & Membedakan Huruf Hijaiyah Bersambung serta Surat Al-\'Asr',
+    subtitle: 'Materi Lengkap Hukum Mim Sukun, Hijaiyah Bersambung & Surah Al-\'Asr',
+    description: 'Mempelajari cara membaca dan menulis huruf hijaiyah bersambung 3 kata atau lebih, 3 hukum bacaan Mim Sukun (Idzhar Syafawi, Ikhfa Syafawi, Idgham Mimi), serta kandungan Surah Al-\'Asr.',
     keyPoints: [
-      'Menghormati teman yang berbeda suku dan budaya.',
-      'Saling menyapa dengan santun dan senyuman.',
-      'Saling membantu dalam kebaikan dan tidak meretas kerukunan.',
+      'Membedakan bentuk huruf hijaiyah di awal, tengah, dan akhir kata.',
+      'Praktik membaca Mim Sukun: Idzhar Syafawi, Ikhfa Syafawi, Idgham Mimi.',
+      'Memahami pesan Surat Al-\'Asr: 4 syarat selamat dari kerugian.',
+    ]
+  },
+  {
+    id: 'k5-2',
+    grade: 5,
+    element: 'Akidah',
+    title: 'Mengenal dan Meneladani Asmaul Husna: Al-Halīm, Asy-Syakūr, Al-Hakīm, & Al-Wadūd',
+    subtitle: 'Materi Lengkap Arti, Hikmah, Keteladanan, & Pengamalan 4 Asmaul Husna',
+    description: 'Mengenal pengertian Asmaul Husna, dalil (QS. Al-A\'raf: 180), serta mendalami 4 nama indah Allah: Al-Halīm (Maha Penyantun), Asy-Syakūr (Maha Mensyukuri), Al-Hakīm (Maha Bijaksana), dan Al-Wadūd (Maha Mencintai).',
+    keyPoints: [
+      'Al-Halīm: Maha Penyantun & Penyabar, mengajarkan kesabaran, kedamaian, & pemaaf.',
+      'Asy-Syakūr: Maha Mensyukuri / Memberi Balasan, menghargai setiap kebaikan walau kecil.',
+      'Al-Hakīm: Maha Bijaksana, selalu berpikir sebelum bertindak & musyawarah.',
+      'Al-Wadūd: Maha Mencintai & Pengasih, menyayangi sesama tanpa membeda-bedakan.'
+    ]
+  },
+  {
+    id: 'k5-3',
+    grade: 5,
+    element: 'Akhlak',
+    title: 'Akhlak Kepada Allah Swt. Melalui Doa dan Tawakal',
+    subtitle: 'Menerapkan Sikap Hormat, Taat, Cinta, 7 Adab Berdoa, & Sikap Tawakal',
+    description: 'Mendalami pengertian akhlak kepada Allah Swt., dalil perintah berdoa (QS. Ghafir: 60), 7 adab berdoa dan manfaatnya, serta pengertian ikhtiar dan bertawakal (QS. Ali \'Imran: 159).',
+    keyPoints: [
+      'Pengertian Akhlak kepada Allah Swt. sebagai pencerminan rasa hormat, taat, dan cinta.',
+      'Menerapkan Doa: Pengertian, Dalil (QS. Ghafir: 60), 7 Adab Berdoa, & Manfaat Berdoa.',
+      'Menerapkan Tawakal: Pengertian ikhtiar & bertawakal, Dalil (QS. Ali \'Imran: 159), Contoh & Hikmah.'
+    ]
+  },
+  {
+    id: 'k5-4',
+    grade: 5,
+    element: 'Fiqih',
+    title: 'Puasa Wajib dan Sunah, Serta Hikmahnya',
+    subtitle: 'Memahami Ketentuan Puasa Ramadan, Puasa Sunah, Syarat, Rukun, & Hikmah Kehidupan',
+    description: 'Mempelajari pengertian puasa (QS. Al-Baqarah: 183), macam-macam puasa wajib (Ramadan, Nazar, Kafarat) dan sunah (Senin-Kamis, Arafah, Asyura, Ayyamul Bidh, Daud), syarat wajib, rukun, hal membatalkan puasa, serta hikmahnya.',
+    keyPoints: [
+      'Pengertian & Dalil Puasa (QS. Al-Baqarah: 183) untuk membentuk pribadi bertakwa.',
+      'Macam Puasa Wajib (Ramadan, Nazar, Kafarat) & Puasa Sunah (Senin-Kamis, Arafah, Asyura, Ayyamul Bidh, Daud).',
+      'Syarat Wajib, Rukun, Hal-Hal Membatalkan Puasa & Hal Pengurang Pahala.',
+      'Hikmah Puasa: Meningkatkan Takwa, Melatih Kesabaran, Menumbuhkan Disiplin, Empati, & Menjaga Kesehatan.'
     ]
   },
 

@@ -117,10 +117,10 @@ export default function App() {
       {/* Footer / Copyright Info */}
       <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 py-6 mt-12 text-center text-xs text-slate-500 dark:text-slate-400 space-y-1">
         <p className="font-semibold text-emerald-800 dark:text-emerald-300">
-          PAICODE-MPI • Media Pembelajaran Interaktif PAI & Budi Pekerti SD Kelas 1-6
+          SIMPAD • Sistem Media Pembelajaran Digital PAI-SD Kelas 1-6
         </p>
         <p>
-          Didesain untuk Banyak Guru PAI — Kompatibel dengan Laptop, Smartphone & Papan Pintar IFP.
+          Boleh Digunakan oleh Semua Guru — Kompatibel dengan Laptop, Smartphone & Papan Pintar IFP.
         </p>
       </footer>
     </div>
