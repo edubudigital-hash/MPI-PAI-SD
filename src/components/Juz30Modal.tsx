@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   X, 
   Search, 
@@ -9,13 +9,17 @@ import {
   Check, 
   Copy, 
   ChevronLeft,
+  ChevronRight,
   ListFilter,
   Eye,
   EyeOff,
   ExternalLink,
-  Bookmark
+  Play,
+  Pause,
+  ArrowLeft,
+  Loader2
 } from 'lucide-react';
-import { JUZ_30_SURAHS, QuranSurah } from '../data/juz30Data';
+import { JUZ_30_SURAHS, QuranSurah, QuranVerse } from '../data/juz30Data';
 import { soundFX } from '../utils/audio';
 
 interface Juz30ModalProps {
@@ -25,16 +29,107 @@ interface Juz30ModalProps {
 
 export const Juz30Modal: React.FC<Juz30ModalProps> = ({ isOpen, onClose }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [verseSearch, setVerseSearch] = useState('');
   const [selectedSurah, setSelectedSurah] = useState<QuranSurah | null>(null);
   const [showLatin, setShowLatin] = useState(true);
   const [showTranslation, setShowTranslation] = useState(true);
-  const [playingAudio, setPlayingAudio] = useState<string | null>(null);
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [copiedVerse, setCopiedVerse] = useState<number | null>(null);
   const [filterType, setFilterType] = useState<'all' | 'popular' | 'makkiyah' | 'madaniyah'>('all');
+  const [loadingVerses, setLoadingVerses] = useState(false);
+
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const modalContentRef = useRef<HTMLDivElement | null>(null);
+
+  // Stop audio on unmount or surah change
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  const handleSelectSurah = async (surah: QuranSurah) => {
+    soundFX.playClick();
+    
+    // Stop playing audio when changing surah
+    if (audioRef.current) {
+      audioRef.current.pause();
+      setIsPlayingAudio(false);
+      audioRef.current = null;
+    }
+
+    setSelectedSurah(surah);
+    setVerseSearch('');
+
+    // Scroll to top of content
+    if (modalContentRef.current) {
+      modalContentRef.current.scrollTop = 0;
+    }
+
+    // Check if verses are complete or if we can fetch live update
+    if (surah.verses.length < surah.numberOfVerses) {
+      setLoadingVerses(true);
+      try {
+        const res = await fetch(`https://equran.id/api/v2/surat/${surah.number}`);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data && json.data.ayat) {
+            const fullVerses: QuranVerse[] = json.data.ayat.map((a: any) => ({
+              number: a.nomorAyat,
+              arabic: a.teksArab,
+              latin: a.teksLatin,
+              translation: a.teksIndonesia
+            }));
+            setSelectedSurah({
+              ...surah,
+              verses: fullVerses
+            });
+          }
+        }
+      } catch (err) {
+        console.warn('Live fetch offline fallback to local dataset:', err);
+      } finally {
+        setLoadingVerses(false);
+      }
+    }
+  };
+
+  const handleToggleSurahAudio = (surah: QuranSurah) => {
+    soundFX.playClick();
+    const formattedNum = surah.number.toString().padStart(3, '0');
+    const targetAudioUrl = surah.audioUrl || `https://cdn.equran.id/audio-full/Abdullah-Al-Juhany/${formattedNum}.mp3`;
+
+    if (audioRef.current && isPlayingAudio) {
+      audioRef.current.pause();
+      setIsPlayingAudio(false);
+    } else {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      const newAudio = new Audio(targetAudioUrl);
+      newAudio.onended = () => setIsPlayingAudio(false);
+      newAudio.onerror = () => {
+        // Fallback audio source
+        const fallbackUrl = `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${surah.number}.mp3`;
+        const fbAudio = new Audio(fallbackUrl);
+        fbAudio.onended = () => setIsPlayingAudio(false);
+        fbAudio.play();
+        audioRef.current = fbAudio;
+      };
+      newAudio.play();
+      audioRef.current = newAudio;
+      setIsPlayingAudio(true);
+      setAudioUrl(targetAudioUrl);
+    }
+  };
 
   if (!isOpen) return null;
 
-  // Filtered surahs
+  // Filtered surahs for the grid
   const filteredSurahs = JUZ_30_SURAHS.filter((surah) => {
     const matchesSearch = 
       surah.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -45,7 +140,6 @@ export const Juz30Modal: React.FC<Juz30ModalProps> = ({ isOpen, onClose }) => {
     if (!matchesSearch) return false;
 
     if (filterType === 'popular') {
-      // Common primary school surahs
       return [114, 113, 112, 111, 110, 109, 108, 107, 106, 105, 104, 103, 97, 95, 94, 93, 78].includes(surah.number);
     } else if (filterType === 'makkiyah') {
       return surah.revelationType === 'Makkiyah';
@@ -62,16 +156,22 @@ export const Juz30Modal: React.FC<Juz30ModalProps> = ({ isOpen, onClose }) => {
     setTimeout(() => setCopiedVerse(null), 2000);
   };
 
-  const handleToggleAudio = (surahNumber: number) => {
-    const audioUrl = `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${surahNumber}.mp3`;
-    
-    if (playingAudio === audioUrl) {
-      setPlayingAudio(null);
-    } else {
-      soundFX.playClick();
-      setPlayingAudio(audioUrl);
-    }
-  };
+  // Navigation helpers
+  const currentSurahIndex = selectedSurah ? JUZ_30_SURAHS.findIndex(s => s.number === selectedSurah.number) : -1;
+  const prevSurah = currentSurahIndex > 0 ? JUZ_30_SURAHS[currentSurahIndex - 1] : null;
+  const nextSurah = currentSurahIndex < JUZ_30_SURAHS.length - 1 ? JUZ_30_SURAHS[currentSurahIndex + 1] : null;
+
+  // Filtered verses inside selected surah
+  const displayedVerses = selectedSurah ? selectedSurah.verses.filter(v => {
+    if (!verseSearch.trim()) return true;
+    const term = verseSearch.toLowerCase();
+    return (
+      v.number.toString() === term ||
+      v.latin.toLowerCase().includes(term) ||
+      v.translation.toLowerCase().includes(term) ||
+      v.arabic.includes(term)
+    );
+  }) : [];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-emerald-950/80 backdrop-blur-xs p-2 sm:p-4 animate-fadeIn">
@@ -225,26 +325,52 @@ export const Juz30Modal: React.FC<Juz30ModalProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* Main Body Area */}
-        <div className="flex-1 overflow-y-auto p-3 sm:p-5 bg-slate-50/80 dark:bg-slate-950">
+        <div ref={modalContentRef} className="flex-1 overflow-y-auto p-3 sm:p-5 bg-slate-50/80 dark:bg-slate-950">
           
           {/* CASE 1: Detail View of a Selected Surah */}
           {selectedSurah ? (
-            <div className="max-w-4xl mx-auto space-y-6">
+            <div className="max-w-4xl mx-auto space-y-6 animate-fadeIn">
               
-              {/* Surah Banner Card */}
-              <div className="bg-gradient-to-br from-emerald-800 via-teal-800 to-emerald-900 text-white rounded-2xl p-4 sm:p-6 shadow-md border border-amber-300/40 text-center relative overflow-hidden">
-                <div className="absolute top-2 left-3 text-[11px] bg-amber-400 text-emerald-950 font-bold px-2.5 py-0.5 rounded-full font-mono">
-                  No. {selectedSurah.number}
-                </div>
-                <div className="absolute top-2 right-3 text-[11px] bg-emerald-950/60 border border-emerald-500 text-emerald-200 px-2.5 py-0.5 rounded-full">
-                  {selectedSurah.revelationType} • {selectedSurah.numberOfVerses} Ayat
+              {/* Top Navigation & Surah Header Banner */}
+              <div className="bg-gradient-to-br from-emerald-800 via-teal-800 to-emerald-900 text-white rounded-2xl p-4 sm:p-6 shadow-md border border-amber-300/40 relative overflow-hidden">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-[11px] bg-amber-400 text-emerald-950 font-bold px-3 py-1 rounded-full font-mono shadow-xs">
+                    Surah Ke-{selectedSurah.number} dari 114
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => handleToggleSurahAudio(selectedSurah)}
+                      className={`px-3 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition shadow-sm cursor-pointer ${
+                        isPlayingAudio 
+                          ? 'bg-amber-400 text-emerald-950 animate-pulse' 
+                          : 'bg-white/15 hover:bg-white/25 text-amber-200 border border-amber-300/30'
+                      }`}
+                      title="Putar Audio Murottal Surah"
+                    >
+                      {isPlayingAudio ? (
+                        <>
+                          <Pause className="w-3.5 h-3.5 fill-current" />
+                          <span>Jeda Murottal</span>
+                        </>
+                      ) : (
+                        <>
+                          <Play className="w-3.5 h-3.5 fill-current" />
+                          <span>Putar Audio Murottal</span>
+                        </>
+                      )}
+                    </button>
+
+                    <span className="text-[11px] bg-emerald-950/70 border border-emerald-500/60 text-emerald-200 px-2.5 py-1 rounded-full">
+                      {selectedSurah.revelationType} • {selectedSurah.numberOfVerses} Ayat Lengkap
+                    </span>
+                  </div>
                 </div>
 
-                <div className="mt-4 space-y-2">
-                  <h3 className="text-3xl sm:text-4xl font-serif font-bold text-amber-200 tracking-wide">
+                <div className="text-center my-3 space-y-1.5">
+                  <h3 className="text-4xl sm:text-5xl font-serif font-bold text-amber-200 tracking-wider">
                     {selectedSurah.arabicName}
                   </h3>
-                  <h2 className="text-xl sm:text-2xl font-extrabold text-white">
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
                     Surah {selectedSurah.name}
                   </h2>
                   <p className="text-sm text-emerald-200 font-medium">
@@ -252,38 +378,95 @@ export const Juz30Modal: React.FC<Juz30ModalProps> = ({ isOpen, onClose }) => {
                   </p>
                 </div>
 
-                {/* Bismillah Header (except if special) */}
-                <div className="mt-6 pt-4 border-t border-emerald-600/50">
-                  <p className="font-serif text-2xl sm:text-3xl text-amber-300 leading-relaxed">
-                    بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-                  </p>
-                  <p className="text-xs text-emerald-200 mt-1 italic font-sans">
-                    Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang
-                  </p>
+                {/* Bismillah Header (except Surah At-Tawbah if applicable) */}
+                {selectedSurah.number !== 9 && (
+                  <div className="mt-5 pt-4 border-t border-emerald-600/50 text-center">
+                    <p className="font-serif text-2xl sm:text-3xl text-amber-300 leading-relaxed">
+                      بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                    </p>
+                    <p className="text-xs text-emerald-200 mt-1 italic font-sans">
+                      Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang
+                    </p>
+                  </div>
+                )}
+
+                {/* Quick Prev / Next Surah Bar */}
+                <div className="mt-5 pt-3 border-t border-emerald-700/60 flex items-center justify-between text-xs">
+                  {prevSurah ? (
+                    <button
+                      onClick={() => handleSelectSurah(prevSurah)}
+                      className="flex items-center gap-1 text-emerald-200 hover:text-white transition cursor-pointer font-semibold bg-white/10 px-2.5 py-1 rounded-lg"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                      <span>{prevSurah.name} ({prevSurah.number})</span>
+                    </button>
+                  ) : <div />}
+
+                  <span className="text-[11px] text-emerald-200 font-mono hidden sm:inline">
+                    {selectedSurah.verses.length} Ayat Ditampilkan
+                  </span>
+
+                  {nextSurah ? (
+                    <button
+                      onClick={() => handleSelectSurah(nextSurah)}
+                      className="flex items-center gap-1 text-emerald-200 hover:text-white transition cursor-pointer font-semibold bg-white/10 px-2.5 py-1 rounded-lg"
+                    >
+                      <span>{nextSurah.name} ({nextSurah.number})</span>
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  ) : <div />}
                 </div>
               </div>
 
+              {/* In-Surah Verse Search Bar & Info */}
+              <div className="bg-white dark:bg-slate-900 rounded-xl p-3 border border-emerald-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2 shadow-xs">
+                <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-ping"></span>
+                  <span>Menampilkan Seluruh Ayat ({selectedSurah.verses.length} Ayat)</span>
+                </div>
+
+                <div className="relative w-full sm:w-64">
+                  <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    type="text"
+                    placeholder="Cari kata/ayat dalam surah ini..."
+                    value={verseSearch}
+                    onChange={(e) => setVerseSearch(e.target.value)}
+                    className="w-full pl-8 pr-3 py-1 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-emerald-500 font-medium text-slate-800 dark:text-slate-100"
+                  />
+                </div>
+              </div>
+
+              {/* Loading Indicator */}
+              {loadingVerses && (
+                <div className="py-8 text-center text-emerald-700 dark:text-emerald-400 flex items-center justify-center gap-2">
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <span className="text-xs font-bold">Memuat ayat lengkap dari Server Kemenag RI...</span>
+                </div>
+              )}
+
               {/* Verses List */}
               <div className="space-y-4">
-                {selectedSurah.verses.map((verse) => (
+                {displayedVerses.map((verse) => (
                   <div
                     key={verse.number}
+                    id={`verse-${verse.number}`}
                     className="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-emerald-100 dark:border-slate-800 shadow-xs hover:border-emerald-300 dark:hover:border-slate-700 transition space-y-3"
                   >
                     {/* Verse Header Bar */}
                     <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2">
                       <div className="flex items-center gap-2">
-                        <span className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/60 text-emerald-900 dark:text-emerald-200 text-xs font-bold flex items-center justify-center font-mono border border-emerald-300 dark:border-emerald-700">
+                        <span className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/60 text-emerald-900 dark:text-emerald-200 text-xs font-bold flex items-center justify-center font-mono border border-emerald-300 dark:border-emerald-700 shadow-2xs">
                           {verse.number}
                         </span>
-                        <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                        <span className="text-xs font-bold text-emerald-800 dark:text-emerald-400">
                           Ayat {verse.number}
                         </span>
                       </div>
 
                       <button
                         onClick={() => handleCopyVerse(`${verse.arabic}\n${verse.latin}\n"${verse.translation}"`, verse.number)}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-700 hover:bg-emerald-50 dark:hover:bg-slate-800 transition flex items-center gap-1 text-xs"
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-700 hover:bg-emerald-50 dark:hover:bg-slate-800 transition flex items-center gap-1 text-xs cursor-pointer"
                         title="Salin Teks Ayat"
                       >
                         {copiedVerse === verse.number ? (
@@ -301,16 +484,16 @@ export const Juz30Modal: React.FC<Juz30ModalProps> = ({ isOpen, onClose }) => {
                     </div>
 
                     {/* Big Arabic Text */}
-                    <div className="text-right py-2">
-                      <p className="font-serif text-2xl sm:text-3xl md:text-4xl text-emerald-950 dark:text-amber-200 leading-[2.2] tracking-wide font-semibold">
+                    <div className="text-right py-2 pl-4">
+                      <p className="font-serif text-2xl sm:text-3xl md:text-4xl text-emerald-950 dark:text-amber-200 leading-[2.3] tracking-wide font-semibold">
                         {verse.arabic}
                       </p>
                     </div>
 
                     {/* Latin Transliteration */}
                     {showLatin && (
-                      <div className="bg-amber-50/60 dark:bg-amber-950/20 p-2.5 rounded-xl border border-amber-200/60 dark:border-amber-900/40 text-xs sm:text-sm font-serif text-amber-950 dark:text-amber-200 font-medium">
-                        <span className="text-[10px] uppercase tracking-wider font-bold text-amber-700 dark:text-amber-400 block mb-0.5">
+                      <div className="bg-amber-50/60 dark:bg-amber-950/20 p-3 rounded-xl border border-amber-200/60 dark:border-amber-900/40 text-xs sm:text-sm font-serif text-amber-950 dark:text-amber-200 font-medium">
+                        <span className="text-[10px] uppercase tracking-wider font-bold text-amber-700 dark:text-amber-400 block mb-0.5 font-sans">
                           Latin:
                         </span>
                         {verse.latin}
@@ -328,19 +511,52 @@ export const Juz30Modal: React.FC<Juz30ModalProps> = ({ isOpen, onClose }) => {
                     )}
                   </div>
                 ))}
+
+                {displayedVerses.length === 0 && (
+                  <div className="py-12 text-center text-slate-500 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <p className="font-semibold text-sm">Ayat tidak ditemukan untuk pencarian "{verseSearch}"</p>
+                    <button
+                      onClick={() => setVerseSearch('')}
+                      className="mt-2 text-xs font-bold text-emerald-700 hover:underline"
+                    >
+                      Bersihkan Pencarian
+                    </button>
+                  </div>
+                )}
               </div>
 
-              {/* Bottom Navigation Button */}
-              <div className="pt-4 text-center">
+              {/* Bottom Navigation Buttons */}
+              <div className="pt-6 pb-2 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
+                {prevSurah ? (
+                  <button
+                    onClick={() => handleSelectSurah(prevSurah)}
+                    className="px-4 py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-emerald-900 dark:text-emerald-300 font-bold text-xs transition flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                    <span>Sebelumnnya: {prevSurah.name}</span>
+                  </button>
+                ) : <div />}
+
                 <button
                   onClick={() => {
                     soundFX.playClick();
                     setSelectedSurah(null);
                   }}
-                  className="px-6 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm transition shadow-md"
+                  className="px-6 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm transition shadow-md cursor-pointer flex items-center gap-2"
                 >
-                  &larr; Kembali ke Daftar Semua Surah
+                  <ArrowLeft className="w-4 h-4" />
+                  <span>Kembali ke Daftar Semua Surah</span>
                 </button>
+
+                {nextSurah ? (
+                  <button
+                    onClick={() => handleSelectSurah(nextSurah)}
+                    className="px-4 py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-emerald-900 dark:text-emerald-300 font-bold text-xs transition flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <span>Selanjutnya: {nextSurah.name}</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                ) : <div />}
               </div>
             </div>
           ) : (
@@ -350,10 +566,7 @@ export const Juz30Modal: React.FC<Juz30ModalProps> = ({ isOpen, onClose }) => {
               {filteredSurahs.map((surah) => (
                 <div
                   key={surah.number}
-                  onClick={() => {
-                    soundFX.playClick();
-                    setSelectedSurah(surah);
-                  }}
+                  onClick={() => handleSelectSurah(surah)}
                   className="bg-white dark:bg-slate-900 rounded-xl p-3.5 sm:p-4 border border-emerald-100 dark:border-slate-800 shadow-xs hover:border-emerald-400 dark:hover:border-slate-600 hover:shadow-md transition cursor-pointer flex flex-col justify-between group relative"
                 >
                   {/* Top Bar inside Surah Card */}
