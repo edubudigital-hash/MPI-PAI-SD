@@ -22,6 +22,7 @@ interface HeaderProps {
   onOpenAIAssistant: () => void;
   onOpenGuide: () => void;
   onOpenAsmaulHusna?: () => void;
+  onOpenJuz30?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -30,6 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenAIAssistant,
   onOpenGuide,
   onOpenAsmaulHusna,
+  onOpenJuz30,
 }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -103,7 +105,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Sound Toggle Button */}
           <button
             onClick={toggleSound}
-            className={`px-2 py-1 rounded-lg border text-xs font-medium transition shadow-2xs active:scale-95 flex items-center gap-1 ${
+            className={`p-1.5 sm:p-2 rounded-lg border text-xs font-medium transition shadow-2xs active:scale-95 flex items-center justify-center ${
               settings.soundEnabled
                 ? 'bg-emerald-700/80 hover:bg-emerald-600 border-emerald-500 text-amber-300'
                 : 'bg-rose-900/60 hover:bg-rose-900/80 border-rose-500/60 text-slate-300'
@@ -111,15 +113,9 @@ export const Header: React.FC<HeaderProps> = ({
             title={settings.soundEnabled ? 'Efek Suara Aktif' : 'Efek Suara Mati'}
           >
             {settings.soundEnabled ? (
-              <>
-                <Volume2 className="w-3.5 h-3.5 text-amber-300" />
-                <span className="hidden md:inline text-[11px]">Suara</span>
-              </>
+              <Volume2 className="w-4 h-4 text-amber-300" />
             ) : (
-              <>
-                <VolumeX className="w-3.5 h-3.5 text-rose-300" />
-                <span className="hidden md:inline text-[11px]">Mute</span>
-              </>
+              <VolumeX className="w-4 h-4 text-rose-300" />
             )}
           </button>
 
@@ -136,10 +132,23 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="text-xs">Asmaul Husna</span>
           </button>
 
+          {/* Juz 30 Al-Qur'an Button */}
+          <button
+            onClick={() => {
+              if (settings.soundEnabled) soundFX.playClick();
+              if (onOpenJuz30) onOpenJuz30();
+            }}
+            className="flex items-center space-x-1 px-2.5 py-1 rounded-lg bg-emerald-700/90 hover:bg-emerald-600 text-emerald-100 border border-emerald-400 font-bold text-xs transition shadow-2xs active:scale-95 cursor-pointer"
+            title="Buka Al-Qur'an Surat-Surat Juz 30 (Kemenag RI)"
+          >
+            <BookOpen className="w-3.5 h-3.5 text-amber-300" />
+            <span className="text-xs">Juz 30</span>
+          </button>
+
           {/* Fullscreen Button */}
           <button
             onClick={toggleFullscreen}
-            className={`flex items-center space-x-1 px-2 py-1 rounded-lg border text-xs font-medium transition shadow-2xs active:scale-95 ${
+            className={`p-1.5 sm:p-2 rounded-lg border text-xs font-medium transition shadow-2xs active:scale-95 flex items-center justify-center ${
               isFullscreen
                 ? 'bg-amber-400 text-emerald-950 border-amber-200 font-bold'
                 : 'bg-emerald-700/80 hover:bg-emerald-600 text-emerald-100 border-emerald-500'
@@ -147,15 +156,9 @@ export const Header: React.FC<HeaderProps> = ({
             title={isFullscreen ? 'Keluar Layar Penuh (Fullscreen)' : 'Layar Penuh (Fullscreen)'}
           >
             {isFullscreen ? (
-              <>
-                <Minimize className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline text-[11px]">Exit Full</span>
-              </>
+              <Minimize className="w-4 h-4" />
             ) : (
-              <>
-                <Maximize className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline text-[11px]">Layar Penuh</span>
-              </>
+              <Maximize className="w-4 h-4" />
             )}
           </button>
 

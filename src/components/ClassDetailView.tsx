@@ -66,6 +66,96 @@ import { MateriSlideView5_P5 } from './kelas5/MateriSlideView5_P5';
 import { ProyekMuridView5_P5 } from './kelas5/ProyekMuridView5_P5';
 import { KepemimpinanGamifikasi5_P5 } from './kelas5/KepemimpinanGamifikasi5_P5';
 import { EvaluasiView5_P5 } from './kelas5/EvaluasiView5_P5';
+
+// Kelas 6 Pembelajaran 1 Components
+import { MateriSlideView6_P1 } from './kelas6/MateriSlideView6_P1';
+import { ProyekMuridView6_P1 } from './kelas6/ProyekMuridView6_P1';
+import { GhunnahGamifikasi6_P1 } from './kelas6/GhunnahGamifikasi6_P1';
+import { EvaluasiView6_P1 } from './kelas6/EvaluasiView6_P1';
+
+// Kelas 6 Pembelajaran 2 Components
+import { MateriSlideView6_P2 } from './kelas6/MateriSlideView6_P2';
+import { ProyekMuridView6_P2 } from './kelas6/ProyekMuridView6_P2';
+import { AsmaulHusnaGamifikasi6_P2 } from './kelas6/AsmaulHusnaGamifikasi6_P2';
+import { EvaluasiView6_P2 } from './kelas6/EvaluasiView6_P2';
+
+// Kelas 6 Pembelajaran 3 Components
+import { MateriSlideView6_P3 } from './kelas6/MateriSlideView6_P3';
+import { ProyekMuridView6_P3 } from './kelas6/ProyekMuridView6_P3';
+import { AkhlakGamifikasi6_P3 } from './kelas6/AkhlakGamifikasi6_P3';
+import { EvaluasiView6_P3 } from './kelas6/EvaluasiView6_P3';
+
+// Kelas 6 Pembelajaran 4 Components
+import { MateriSlideView6_P4 } from './kelas6/MateriSlideView6_P4';
+import { ProyekMuridView6_P4 } from './kelas6/ProyekMuridView6_P4';
+import { ZakatGamifikasi6_P4 } from './kelas6/ZakatGamifikasi6_P4';
+import { EvaluasiView6_P4 } from './kelas6/EvaluasiView6_P4';
+
+// Kelas 6 Pembelajaran 5 Components
+import { MateriSlideView6_P5 } from './kelas6/MateriSlideView6_P5';
+import { ProyekMuridView6_P5 } from './kelas6/ProyekMuridView6_P5';
+import { KhulafaurRasyidinGamifikasi6_P5 } from './kelas6/KhulafaurRasyidinGamifikasi6_P5';
+import { EvaluasiView6_P5 } from './kelas6/EvaluasiView6_P5';
+
+// Kelas 1 Pembelajaran 1 Components
+import { MateriSlideView1_P1 } from './kelas1/MateriSlideView1_P1';
+import { ProyekMuridView1_P1 } from './kelas1/ProyekMuridView1_P1';
+import { HurufHijaiyahGamifikasi1_P1 } from './kelas1/HurufHijaiyahGamifikasi1_P1';
+import { EvaluasiView1_P1 } from './kelas1/EvaluasiView1_P1';
+
+// Kelas 1 Pembelajaran 2 Components
+import { MateriSlideView1_P2 } from './kelas1/MateriSlideView1_P2';
+import { ProyekMuridView1_P2 } from './kelas1/ProyekMuridView1_P2';
+import { RukunImanGamifikasi1_P2 } from './kelas1/RukunImanGamifikasi1_P2';
+import { EvaluasiView1_P2 } from './kelas1/EvaluasiView1_P2';
+
+// Kelas 1 Pembelajaran 3 Components
+import { MateriSlideView1_P3 } from './kelas1/MateriSlideView1_P3';
+import { ProyekMuridView1_P3 } from './kelas1/ProyekMuridView1_P3';
+import { KalimatTayyibahGamifikasi1_P3 } from './kelas1/KalimatTayyibahGamifikasi1_P3';
+import { EvaluasiView1_P3 } from './kelas1/EvaluasiView1_P3';
+
+// Kelas 1 Pembelajaran 4 Components
+import { MateriSlideView1_P4 } from './kelas1/MateriSlideView1_P4';
+import { ProyekMuridView1_P4 } from './kelas1/ProyekMuridView1_P4';
+import { RukunIslamGamifikasi1_P4 } from './kelas1/RukunIslamGamifikasi1_P4';
+import { EvaluasiView1_P4 } from './kelas1/EvaluasiView1_P4';
+
+// Kelas 1 Pembelajaran 5 Components
+import { MateriSlideView1_P5 } from './kelas1/MateriSlideView1_P5';
+import { ProyekMuridView1_P5 } from './kelas1/ProyekMuridView1_P5';
+import { KisahNabiAdamGamifikasi1_P5 } from './kelas1/KisahNabiAdamGamifikasi1_P5';
+import { EvaluasiView1_P5 } from './kelas1/EvaluasiView1_P5';
+
+// Kelas 2 Pembelajaran 1 Components
+import { MateriSlideView2_P1 } from './kelas2/MateriSlideView2_P1';
+import { ProyekMuridView2_P1 } from './kelas2/ProyekMuridView2_P1';
+import { AnNasAlFalaqGamifikasi2_P1 } from './kelas2/AnNasAlFalaqGamifikasi2_P1';
+import { EvaluasiView2_P1 } from './kelas2/EvaluasiView2_P1';
+
+// Kelas 2 Pembelajaran 2 Components
+import { MateriSlideView2_P2 } from './kelas2/MateriSlideView2_P2';
+import { ProyekMuridView2_P2 } from './kelas2/ProyekMuridView2_P2';
+import { AsmaulHusnaGamifikasi2_P2 } from './kelas2/AsmaulHusnaGamifikasi2_P2';
+import { EvaluasiView2_P2 } from './kelas2/EvaluasiView2_P2';
+
+// Kelas 2 Pembelajaran 3 Components
+import { MateriSlideView2_P3 } from './kelas2/MateriSlideView2_P3';
+import { ProyekMuridView2_P3 } from './kelas2/ProyekMuridView2_P3';
+import { PolaHidupBersihGamifikasi2_P3 } from './kelas2/PolaHidupBersihGamifikasi2_P3';
+import { EvaluasiView2_P3 } from './kelas2/EvaluasiView2_P3';
+
+// Kelas 2 Pembelajaran 4 Components
+import { MateriSlideView2_P4 } from './kelas2/MateriSlideView2_P4';
+import { ProyekMuridView2_P4 } from './kelas2/ProyekMuridView2_P4';
+import { ShalatFarduGamifikasi2_P4 } from './kelas2/ShalatFarduGamifikasi2_P4';
+import { EvaluasiView2_P4 } from './kelas2/EvaluasiView2_P4';
+
+// Kelas 2 Pembelajaran 5 Components
+import { MateriSlideView2_P5 } from './kelas2/MateriSlideView2_P5';
+import { ProyekMuridView2_P5 } from './kelas2/ProyekMuridView2_P5';
+import { NabiNuhGamifikasi2_P5 } from './kelas2/NabiNuhGamifikasi2_P5';
+import { EvaluasiView2_P5 } from './kelas2/EvaluasiView2_P5';
 import { 
   ArrowLeft, 
   Home,
@@ -149,6 +239,81 @@ export const ClassDetailView: React.FC<ClassDetailViewProps> = ({
 
   // Helper to render Level 3 content
   const renderModuleContent = () => {
+    if (grade === 1 && selectedLesson === 1) {
+      if (selectedModule === 'materi') {
+        return <MateriSlideView1_P1 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'proyek') {
+        return <ProyekMuridView1_P1 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'gamifikasi') {
+        return <HurufHijaiyahGamifikasi1_P1 />;
+      }
+      if (selectedModule === 'evaluasi') {
+        return <EvaluasiView1_P1 grade={grade} lesson={selectedLesson} />;
+      }
+    }
+
+    if (grade === 1 && selectedLesson === 2) {
+      if (selectedModule === 'materi') {
+        return <MateriSlideView1_P2 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'proyek') {
+        return <ProyekMuridView1_P2 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'gamifikasi') {
+        return <RukunImanGamifikasi1_P2 />;
+      }
+      if (selectedModule === 'evaluasi') {
+        return <EvaluasiView1_P2 grade={grade} lesson={selectedLesson} />;
+      }
+    }
+
+    if (grade === 1 && selectedLesson === 3) {
+      if (selectedModule === 'materi') {
+        return <MateriSlideView1_P3 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'proyek') {
+        return <ProyekMuridView1_P3 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'gamifikasi') {
+        return <KalimatTayyibahGamifikasi1_P3 />;
+      }
+      if (selectedModule === 'evaluasi') {
+        return <EvaluasiView1_P3 grade={grade} lesson={selectedLesson} />;
+      }
+    }
+
+    if (grade === 1 && selectedLesson === 4) {
+      if (selectedModule === 'materi') {
+        return <MateriSlideView1_P4 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'proyek') {
+        return <ProyekMuridView1_P4 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'gamifikasi') {
+        return <RukunIslamGamifikasi1_P4 />;
+      }
+      if (selectedModule === 'evaluasi') {
+        return <EvaluasiView1_P4 grade={grade} lesson={selectedLesson} />;
+      }
+    }
+
+    if (grade === 1 && selectedLesson === 5) {
+      if (selectedModule === 'materi') {
+        return <MateriSlideView1_P5 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'proyek') {
+        return <ProyekMuridView1_P5 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'gamifikasi') {
+        return <KisahNabiAdamGamifikasi1_P5 />;
+      }
+      if (selectedModule === 'evaluasi') {
+        return <EvaluasiView1_P5 grade={grade} lesson={selectedLesson} />;
+      }
+    }
+
     if (grade === 3 && (selectedLesson >= 1 && selectedLesson <= 5)) {
       if (selectedModule === 'materi') {
         return <MateriSlideView grade={grade} lesson={selectedLesson} />;
@@ -311,6 +476,156 @@ export const ClassDetailView: React.FC<ClassDetailViewProps> = ({
       }
       if (selectedModule === 'evaluasi') {
         return <EvaluasiView5_P5 grade={grade} lesson={selectedLesson} />;
+      }
+    }
+
+    if (grade === 6 && selectedLesson === 1) {
+      if (selectedModule === 'materi') {
+        return <MateriSlideView6_P1 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'proyek') {
+        return <ProyekMuridView6_P1 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'gamifikasi') {
+        return <GhunnahGamifikasi6_P1 />;
+      }
+      if (selectedModule === 'evaluasi') {
+        return <EvaluasiView6_P1 grade={grade} lesson={selectedLesson} />;
+      }
+    }
+
+    if (grade === 6 && selectedLesson === 2) {
+      if (selectedModule === 'materi') {
+        return <MateriSlideView6_P2 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'proyek') {
+        return <ProyekMuridView6_P2 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'gamifikasi') {
+        return <AsmaulHusnaGamifikasi6_P2 />;
+      }
+      if (selectedModule === 'evaluasi') {
+        return <EvaluasiView6_P2 grade={grade} lesson={selectedLesson} />;
+      }
+    }
+
+    if (grade === 6 && selectedLesson === 3) {
+      if (selectedModule === 'materi') {
+        return <MateriSlideView6_P3 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'proyek') {
+        return <ProyekMuridView6_P3 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'gamifikasi') {
+        return <AkhlakGamifikasi6_P3 />;
+      }
+      if (selectedModule === 'evaluasi') {
+        return <EvaluasiView6_P3 grade={grade} lesson={selectedLesson} />;
+      }
+    }
+
+    if (grade === 6 && selectedLesson === 4) {
+      if (selectedModule === 'materi') {
+        return <MateriSlideView6_P4 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'proyek') {
+        return <ProyekMuridView6_P4 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'gamifikasi') {
+        return <ZakatGamifikasi6_P4 />;
+      }
+      if (selectedModule === 'evaluasi') {
+        return <EvaluasiView6_P4 grade={grade} lesson={selectedLesson} />;
+      }
+    }
+
+    if (grade === 6 && selectedLesson === 5) {
+      if (selectedModule === 'materi') {
+        return <MateriSlideView6_P5 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'proyek') {
+        return <ProyekMuridView6_P5 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'gamifikasi') {
+        return <KhulafaurRasyidinGamifikasi6_P5 />;
+      }
+      if (selectedModule === 'evaluasi') {
+        return <EvaluasiView6_P5 grade={grade} lesson={selectedLesson} />;
+      }
+    }
+
+    if (grade === 2 && selectedLesson === 1) {
+      if (selectedModule === 'materi') {
+        return <MateriSlideView2_P1 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'proyek') {
+        return <ProyekMuridView2_P1 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'gamifikasi') {
+        return <AnNasAlFalaqGamifikasi2_P1 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'evaluasi') {
+        return <EvaluasiView2_P1 grade={grade} lesson={selectedLesson} />;
+      }
+    }
+
+    if (grade === 2 && selectedLesson === 2) {
+      if (selectedModule === 'materi') {
+        return <MateriSlideView2_P2 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'proyek') {
+        return <ProyekMuridView2_P2 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'gamifikasi') {
+        return <AsmaulHusnaGamifikasi2_P2 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'evaluasi') {
+        return <EvaluasiView2_P2 grade={grade} lesson={selectedLesson} />;
+      }
+    }
+
+    if (grade === 2 && selectedLesson === 3) {
+      if (selectedModule === 'materi') {
+        return <MateriSlideView2_P3 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'proyek') {
+        return <ProyekMuridView2_P3 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'gamifikasi') {
+        return <PolaHidupBersihGamifikasi2_P3 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'evaluasi') {
+        return <EvaluasiView2_P3 grade={grade} lesson={selectedLesson} />;
+      }
+    }
+
+    if (grade === 2 && selectedLesson === 4) {
+      if (selectedModule === 'materi') {
+        return <MateriSlideView2_P4 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'proyek') {
+        return <ProyekMuridView2_P4 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'gamifikasi') {
+        return <ShalatFarduGamifikasi2_P4 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'evaluasi') {
+        return <EvaluasiView2_P4 grade={grade} lesson={selectedLesson} />;
+      }
+    }
+
+    if (grade === 2 && selectedLesson === 5) {
+      if (selectedModule === 'materi') {
+        return <MateriSlideView2_P5 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'proyek') {
+        return <ProyekMuridView2_P5 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'gamifikasi') {
+        return <NabiNuhGamifikasi2_P5 grade={grade} lesson={selectedLesson} />;
+      }
+      if (selectedModule === 'evaluasi') {
+        return <EvaluasiView2_P5 grade={grade} lesson={selectedLesson} />;
       }
     }
 

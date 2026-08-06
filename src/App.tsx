@@ -7,6 +7,7 @@ import { IFPControls } from './components/IFPControls';
 import { AIAssistantModal } from './components/AIAssistantModal';
 import { TeacherGuideModal } from './components/TeacherGuideModal';
 import { AsmaulHusnaModal } from './components/AsmaulHusnaModal';
+import { Juz30Modal } from './components/Juz30Modal';
 import { soundFX } from './utils/audio';
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
   const [showAIAssistant, setShowAIAssistant] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
   const [showAsmaulHusna, setShowAsmaulHusna] = useState(false);
+  const [showJuz30, setShowJuz30] = useState(false);
 
   const handleUpdateSettings = (newSettings: Partial<IFPSettings>) => {
     if (newSettings.soundEnabled !== undefined) {
@@ -69,6 +71,7 @@ export default function App() {
         onOpenAIAssistant={() => setShowAIAssistant(true)}
         onOpenGuide={() => setShowGuide(true)}
         onOpenAsmaulHusna={() => setShowAsmaulHusna(true)}
+        onOpenJuz30={() => setShowJuz30(true)}
       />
 
       {/* Main Container */}
@@ -114,10 +117,15 @@ export default function App() {
         onClose={() => setShowAsmaulHusna(false)}
       />
 
+      <Juz30Modal
+        isOpen={showJuz30}
+        onClose={() => setShowJuz30(false)}
+      />
+
       {/* Footer / Copyright Info */}
       <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 py-6 mt-12 text-center text-xs text-slate-500 dark:text-slate-400 space-y-1">
         <p className="font-semibold text-emerald-800 dark:text-emerald-300">
-          SIMPAD • Sistem Media Pembelajaran Digital PAI-SD Kelas 1-6
+          SIMPAD • Sistem Media Pembelajaran Digital PAI-SD Kelas 1-6 Semester Ganjil
         </p>
         <p>
           Boleh Digunakan oleh Semua Guru — Kompatibel dengan Laptop, Smartphone & Papan Pintar IFP.

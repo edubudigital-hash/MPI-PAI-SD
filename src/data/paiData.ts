@@ -311,23 +311,77 @@ export const SAMPLE_TOPICS: LearningTopic[] = [
     id: 'k6-1',
     grade: 6,
     element: 'Al-Qur\'an Hadis',
-    title: 'Hukum Bacaan Tajwid: Izhar & Ikhfa',
-    subtitle: 'Membaca Al-Qur\'an dengan tartil dan benar',
-    description: 'Hukum Nun Mati (نْ) dan Tanwin (ً ٍ ٌ) dibaca Izhar (jelas) apabila bertemu huruf Halqi, dan Ikhfa (samar) jika bertemu 15 huruf ikhfa.',
-    arabicText: 'مَنْ آَمَنَ (Izhar) | مِنْ قَبْلُ (Ikhfa)',
-    translation: 'Man aamana (Jelas) | Min qablu (Samar)',
+    title: 'Membaca, Menulis, & Membedakan Huruf Hijaiyah Bersambung, Hukum Ghunnah, serta Surat Al-Insyirah',
+    subtitle: 'Membaca, Menulis, Memahami Hukum Ghunnah, & Kandungan Surat Al-Insyirah',
+    description: 'Mempelajari kaidah penulisan huruf hijaiyah bersambung, hukum bacaan Ghunnah (dengung 2 harakat pada Nun/Mim bertasydid), serta membaca, mengartikan, dan meneladani isi kandungan Surat Al-Insyirah.',
+    arabicText: 'إِنَّ مَعَ الْعُسْرِ يُسْرًا',
+    translation: 'Maka sesungguhnya bersama kesulitan ada kemudahan.',
     keyPoints: [
-      'Izhar Halqi: Dibaca jelas tanpa dengung (Huruf: ء هـ ع ح غ خ).',
-      'Ikhfa Haqiqi: Dibaca samar dengan dengung 2 harakat.',
-    ],
-    quizzes: [
-      {
-        id: 'qz-k6-1',
-        question: 'Apabila Nun Mati (نْ) bertemu huruf Alif (ء), hukum bacaannya adalah...',
-        options: ['Iqlab', 'Izhar Halqi (Jelas)', 'Idgham Bighunnah', 'Ikhfa'],
-        correctAnswer: 1,
-        explanation: 'Izhar Halqi terjadi apabila Nun Sukun bertemu salah satu huruf Halqi termasuk Alif (ء).',
-      }
+      'Membedakan bentuk huruf hijaiyah di awal, tengah, dan akhir kata.',
+      'Hukum Ghunnah: dengung 2 harakat pada Nun Bertasydid (نّ) dan Mim Bertasydid (مّ).',
+      'Surat Al-Insyirah (8 ayat): pesan kelapangan dada, kemudahan di balik kesulitan, etos kerja, & bertawakal.'
+    ]
+  },
+  {
+    id: 'k6-2',
+    grade: 6,
+    element: 'Akidah',
+    title: 'Mengenal dan Meneladani Asmaul Husna: Al-Waliy, Al-Hamid, Al-\'Adl, dan As-Sabur',
+    subtitle: 'Materi Lengkap Pengertian, Dalil, Meaning & Keteladanan 4 Asmaul Husna',
+    description: 'Mengenal pengertian Asmaul Husna, dalil Al-Qur\'an (QS. Al-A\'raf: 180, QS. Al-Baqarah: 257), serta mendalami 4 nama indah Allah: Al-Waliy (Maha Pelindung/Penolong), Al-Hamid (Maha Terpuji), Al-\'Adl (Maha Adil), dan As-Sabur (Maha Sabar).',
+    keyPoints: [
+      'Al-Waliy: Maha Pelindung/Penolong, mengajarkan saling membantu dan melindungi sesama.',
+      'Al-Hamid: Maha Terpuji, mengajarkan bersyukur mengucap Alhamdulillah & rendah hati.',
+      'Al-\'Adl: Maha Adil, mengajarkan bersikap adil, jujur, & tidak pilih kasih.',
+      'As-Sabur: Maha Sabar, mengajarkan mengendalikan emosi, tekun, & pantang menyerah.'
+    ]
+  },
+  {
+    id: 'k6-3',
+    grade: 6,
+    element: 'Akhlak',
+    title: 'Akhlak Terpuji kepada Tetangga dan Non-Muslim',
+    subtitle: 'Pengertian, Hadis Nabi, Bentuk & Contoh Perilaku, Toleransi, serta Kisah Teladan Rasulullah saw.',
+    description: 'Mempelajari hakikat akhlakul karimah kepada tetangga (HR. Bukhari & Muslim) dan non-Muslim (QS. Al-Mumtahanah: 8), bentuk perilaku sopan santun, toleransi, hikmah bertetangga, sikap yang harus dihindari, dan kisah teladan Rasulullah saw.',
+    arabicText: 'لَا يَنْهَاكُمُ اللَّهُ عَنِ الَّذِينَ لَمْ يُقَاتِلُوكُمْ فِي الدِّينِ أَنْ تَبَرُّوهُمْ وَتُقْسِطُوا إِلَيْهِمْ',
+    translation: 'Allah tidak melarang kamu berbuat baik dan berlaku adil kepada orang-orang yang tidak memerangimu karena agama. (QS. Al-Mumtahanah: 8)',
+    keyPoints: [
+      'Pengertian Akhlak Terpuji (Akhlakul Karimah) & Hadis diutusnya Rasulullah (HR. Ahmad).',
+      'Hak & Keutamaan Tetangga (HR. Bukhari & Muslim) tanpa membedakan agama/suku/latar belakang.',
+      'Berbuat Baik kepada Non-Muslim (QS. Al-Mumtahanah: 8): toleransi, ramah, tolong-menolong, & berlaku adil.',
+      'Sikap yang Harus Dihindari & Kisah Teladan Rasulullah saw. menjenguk tetangga yang pernah mengganggunya.'
+    ]
+  },
+  {
+    id: 'k6-4',
+    grade: 6,
+    element: 'Fiqih',
+    title: 'Mengenal Zakat Fitrah, Zakat Mal, Infak, dan Sedekah',
+    subtitle: 'Pengertian, Ketentuan, Perhitungan Sederhana, Mustahik, Hikmah, & Pembiasaan',
+    description: 'Mempelajari pengertian zakat fitrah & zakat mal, ketentuan & waktu pembayaran, perhitungan sederhana 2,5 kg beras & 2,5% harta, 8 golongan mustahik (QS. At-Taubah: 60), hikmah ZIS, amalan infak & sedekah, serta contoh penerapan dalam kehidupan sehari-hari.',
+    arabicText: 'وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا مَعَ الرَّاكِعِينَ',
+    translation: 'Dan laksanakanlah salat, tunaikanlah zakat, dan rukuklah beserta orang-orang yang rukuk. (QS. Al-Baqarah: 43)',
+    keyPoints: [
+      'Zakat Fitrah: Penyuci jiwa, 1 sha\' (2,5 kg / 3,5 liter beras), dibayar sebelum salat Idulfitri.',
+      'Zakat Mal: Zakat harta simpanan yang mencapai nisab & haul 1 tahun (2,5% dari total harta).',
+      '8 Golongan Mustahik: Fakir, Miskin, Amil, Mualaf, Riqab, Gharim, Fi Sabilillah, & Ibnu Sabil.',
+      'Infak & Sedekah: Amalan sunah harta & nonharta (senyuman, bantuan tenaga, ilmu) tanpa batas waktu.'
+    ]
+  },
+  {
+    id: 'k6-5',
+    grade: 6,
+    element: 'Sejarah Peradaban Islam (SPI)',
+    title: 'Kisah dan Jasa Khalifah Abu Bakar Ash-Shiddiq serta Khalifah Umar bin Al-Khattab',
+    subtitle: 'Riwayat Singkat, Kepribadian, Jasa-Jasa, Keteladanan, & Penerapan Sehari-hari',
+    description: 'Mempelajari riwayat dan kepribadian Abu Bakar Ash-Shiddiq r.a. (Ash-Shiddiq, pengumpulan Al-Qur\'an, musyawarah) dan Umar bin Al-Khattab r.a. (Al-Faruq, perluasan wilayah, Baitul Mal, Kalender Hijriah), keteladanan kepemimpinan, serta penerapannya di rumah, sekolah, dan masyarakat.',
+    arabicText: 'وَالسَّابِقُونَ الْأَوَّلُونَ مِنَ الْمُهَاجِرِينَ وَالْأَنْصَارِ وَالَّذِينَ اتَّبَعُوهُمْ بِإِحْسَانٍ رَضِيَ اللَّهُ عَنْهُمْ وَرَضُوا عَنْهُ',
+    translation: 'Dan orang-orang yang terdahulu lagi yang pertama-tama (masuk Islam) di antara orang-orang Muhajirin dan Ansar dan orang-orang yang mengikuti mereka dengan baik, Allah rida kepada mereka dan mereka pun rida kepada Allah. (QS. At-Taubah: 100)',
+    keyPoints: [
+      'Khulafaur Rasyidin: Para khalifah yang mendapat petunjuk dari Allah Swt. setelah wafatnya Rasulullah saw.',
+      'Abu Bakar Ash-Shiddiq r.a.: Abdullah bin Abi Quhafah, as-sabiqunal awwalun, jujur, dermawan, pengumpul mushaf Al-Qur\'an (Zaid bin Tsabit).',
+      'Umar bin Al-Khattab r.a.: Al-Faruq, tegas & adil, pembentuk Baitul Mal, penetap Kalender Hijriah, perluasan wilayah Islam.',
+      'Keteladanan & Perbandingan: Meneladani sifat jujur, adil, tegas, sederhana, amanah, dan peduli sesama di rumah, sekolah, & masyarakat.'
     ]
   }
 ];
