@@ -1,6 +1,7 @@
 import React from 'react';
 import { GradeLevel, IFPSettings } from '../types';
 import { soundFX } from '../utils/audio';
+import { ExternalLink, Sparkles, BookOpenCheck } from 'lucide-react';
 
 interface GradeGridProps {
   settings: IFPSettings;
@@ -46,14 +47,14 @@ export const GradeGrid: React.FC<GradeGridProps> = ({
   ];
 
   const handleGradeClick = (grade: GradeLevel) => {
-    soundFX.playClick();
+    if (settings.soundEnabled) soundFX.playClick();
     onSelectGrade(grade);
   };
 
   return (
     <div className="space-y-4 pb-8">
       {/* Compact Mini Banner */}
-      <div className="rounded-xl bg-gradient-to-r from-emerald-900 via-teal-900 to-emerald-950 text-white px-3 py-2.5 sm:px-4 sm:py-3 shadow-md border border-emerald-700 text-center">
+      <div className="rounded-xl bg-gradient-to-r from-emerald-900 via-teal-900 to-emerald-950 text-white px-3 py-2 sm:px-4 sm:py-2.5 shadow-md border border-emerald-700 text-center">
         <h2 className="text-sm sm:text-base md:text-lg font-bold text-amber-300 tracking-tight leading-tight">
           Multimedia Pembelajaran Interaktif PAI-SD
         </h2>
@@ -62,19 +63,60 @@ export const GradeGrid: React.FC<GradeGridProps> = ({
         </p>
       </div>
 
-      {/* 6 Color-Coded Class Buttons (Name Only) */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 pt-1">
+      {/* 6 Color-Coded Class Buttons */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3.5 pt-1">
         {gradesList.map(({ grade, colorClass, shadowClass }) => (
           <button
             key={grade}
             onClick={() => handleGradeClick(grade)}
-            className={`w-full py-6 sm:py-8 md:py-10 px-4 rounded-2xl font-black text-xl sm:text-2xl md:text-3xl tracking-wide shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all duration-200 border border-white/20 flex items-center justify-center cursor-pointer ${colorClass} ${shadowClass} ${
-              settings.isTouchMode ? 'py-10 sm:py-12 text-3xl' : ''
+            className={`w-full py-5 sm:py-7 md:py-8 px-3 rounded-2xl font-black text-lg sm:text-xl md:text-2xl tracking-wide shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-95 transition-all duration-200 border border-white/20 flex items-center justify-center cursor-pointer ${colorClass} ${shadowClass} ${
+              settings.isTouchMode ? 'py-8 sm:py-10 text-2xl' : ''
             }`}
           >
             <span>Kelas {grade}</span>
           </button>
         ))}
+      </div>
+
+      {/* Garis Pembatas (Divider Line) */}
+      <div className="relative my-4 sm:my-6 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t-2 border-dashed border-emerald-300 dark:border-emerald-800/80" />
+        </div>
+        <div className="relative bg-amber-50 dark:bg-slate-900 px-3.5 py-1 rounded-full border border-emerald-300 dark:border-emerald-700 shadow-2xs text-[11px] font-bold text-emerald-900 dark:text-emerald-300 uppercase tracking-wider flex items-center gap-1.5">
+          <BookOpenCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+          <span>Perangkat & Lembar Kerja Guru</span>
+        </div>
+      </div>
+
+      {/* Action Button: Generate Perangkat Ajar Lengkap */}
+      <div className="grid grid-cols-1 gap-3">
+        <a
+          href="https://sigemar-sigapai.ai.studio"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => {
+            if (settings.soundEnabled) soundFX.playClick();
+          }}
+          className="group relative flex items-center justify-between p-3.5 sm:p-4 rounded-xl bg-gradient-to-r from-emerald-800 via-teal-800 to-emerald-900 text-white shadow-sm hover:shadow-md hover:scale-[1.01] active:scale-98 transition-all duration-200 border border-emerald-500/40 cursor-pointer overflow-hidden"
+        >
+          <div className="flex items-center gap-3 relative z-10 min-w-0">
+            <div className="p-2 bg-amber-400/20 text-amber-300 rounded-lg border border-amber-300/30 shrink-0 group-hover:scale-105 transition-transform">
+              <Sparkles className="w-5 h-5 sm:w-5 sm:h-5" />
+            </div>
+            <div className="min-w-0">
+              <h3 className="text-xs sm:text-sm font-extrabold text-amber-200 group-hover:text-amber-100 transition-colors truncate">
+                Generate Perangkat Ajar Lengkap
+              </h3>
+              <p className="text-[11px] text-emerald-100/90 truncate font-medium">
+                Modul Ajar, RPP, Prota, Promes via AI SiGEMAR
+              </p>
+            </div>
+          </div>
+          <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-amber-400 text-emerald-950 px-2.5 py-1 rounded-lg shrink-0 ml-2 shadow-2xs">
+            Buka Web <ExternalLink className="w-3 h-3" />
+          </span>
+        </a>
       </div>
     </div>
   );
